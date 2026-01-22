@@ -18,13 +18,6 @@ O Sagnus ERP é um sistema corporativo com dados sensíveis. O frontend precisa 
 - Renovação automática via endpoint `/adm/auth/refresh`
 - Endpoint `/adm/me` para identidade, roles e permissões
 
-## Fluxo
-1. Login → gera access token + set-cookie refresh
-2. Requests usam access token
-3. HTTP 401 → tenta refresh → repete request original
-4. Falha no refresh → logout forçado
-
 ## Consequências
 - Segurança elevada contra XSS
 - Necessidade de CORS com credentials no gateway
-- Implementação de fila/lock de refresh no frontend

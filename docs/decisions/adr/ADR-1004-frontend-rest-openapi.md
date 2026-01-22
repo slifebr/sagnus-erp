@@ -1,30 +1,26 @@
 # ADR-1004 — Frontend REST-first com OpenAPI
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Data:** 2026-01-22
 - **Escopo:** Frontend ↔ API Gateway
 
 ## Contexto
-O frontend do Sagnus ERP precisa consumir múltiplos BCs via API Gateway,
-com previsibilidade, versionamento e baixo acoplamento.
+O frontend do Sagnus ERP consome múltiplos Bounded Contexts via API Gateway.
+É necessário previsibilidade, tipagem forte e versionamento explícito.
 
 ## Decisão
 - Adotar **REST-first** como padrão de integração frontend ↔ backend
 - APIs documentadas via **OpenAPI**
 - Geração automática de client tipado (TypeScript)
-- GraphQL reservado para casos futuros de composição complexa
+- Frontend consome **exclusivamente** o API Gateway
+- GraphQL reservado para cenários futuros de composição complexa
 
 ## Diretrizes
-- Frontend consome apenas o API Gateway
-- DTOs gerados a partir do OpenAPI são imutáveis
-- Mapeamento DTO → ViewModel feito no frontend
-- Versionamento de endpoints explícito
-
-## Alternativas consideradas
-- GraphQL desde o início (descartado por custo inicial)
-- Chamadas diretas aos BCs (descartado por acoplamento)
+- DTOs gerados do OpenAPI são imutáveis
+- Conversão DTO → ViewModel ocorre no frontend
+- Versionamento explícito de endpoints
 
 ## Consequências
 - Integração previsível
 - Melhor DX com tipagem forte
-- Disciplina maior na evolução da API
+- Evolução controlada da API
