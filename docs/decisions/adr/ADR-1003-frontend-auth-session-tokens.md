@@ -2,29 +2,29 @@
 
 - **Status:** Accepted
 - **Data:** 2026-01-22
-- **Contexto:** Sagnus ERP – Frontend (Shell + ADM)
+- **Escopo:** Frontend (Shell + BC ADM)
 
 ## Contexto
-O Sagnus ERP é um sistema de negócio com dados sensíveis. O frontend precisa garantir:
+O Sagnus ERP é um sistema corporativo com dados sensíveis. O frontend precisa garantir:
 - Segurança contra roubo de sessão (XSS)
-- Boa experiência do usuário (renovação silenciosa)
-- Alinhamento com o API Gateway e BC ADM
+- Renovação transparente de sessão
+- Integração limpa com API Gateway e BC ADM
 
 ## Decisão
-- Access Token (JWT) de curta duração (10–20 min)
+- Access Token (JWT) de curta duração (10–20 minutos)
 - Refresh Token de longa duração
 - Refresh Token armazenado em **cookie HttpOnly**
 - Access Token mantido **apenas em memória**
-- Renovação automática via `/adm/auth/refresh`
-- Endpoint `/adm/me` para identidade e permissões
+- Renovação automática via endpoint `/adm/auth/refresh`
+- Endpoint `/adm/me` para identidade, roles e permissões
 
 ## Fluxo
 1. Login → gera access token + set-cookie refresh
 2. Requests usam access token
-3. 401 → tenta refresh → repete request
-4. Falha no refresh → logout
+3. HTTP 401 → tenta refresh → repete request original
+4. Falha no refresh → logout forçado
 
 ## Consequências
-- Maior segurança
-- Necessidade de CORS + credentials no gateway
-- Implementação de fila de refresh no frontend
+- Segurança elevada contra XSS
+- Necessidade de CORS com credentials no gateway
+- Implementação de fila/lock de refresh no frontend

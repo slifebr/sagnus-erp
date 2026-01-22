@@ -2,26 +2,26 @@
 
 - **Status:** Accepted
 - **Data:** 2026-01-22
-- **Contexto:** Migração de UX Oracle Forms → Web
+- **Escopo:** Frontend (UX ERP)
 
 ## Contexto
-O ERP exige grids com:
+A migração do Oracle Forms exige grids com:
 - Edição inline multirow
 - Copiar/colar estilo Excel
-- Navegação por teclado
-- Alta performance
+- Navegação intensa por teclado
+- Alta performance com grandes volumes
 
 ## Decisão
-- Adotar um único motor de grid encapsulado em `SagnusGrid`
+- Adotar um motor de grid único encapsulado em `SagnusGrid`
 - Wrapper próprio no frontend (`packages/grid`)
-- Grid recomendado: AG Grid (via wrapper)
+- Motor recomendado: AG Grid (isolado via wrapper)
 
 ## Regras
-- Telas não usam grid vendor diretamente
-- Validações e estados de linha padronizados
+- Telas não utilizam diretamente o grid vendor
+- Estados de linha padronizados (new, dirty, clean, deleted)
 - Clipboard TSV como padrão
 
 ## Consequências
-- UX consistente
+- UX consistente entre telas
 - Redução de retrabalho
-- Dependência controlada do motor de grid
+- Dependência de vendor controlada via wrapper
